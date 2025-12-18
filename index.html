@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ELIZA · Creación de Oportunidades</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
-/* === ESTILOS (IGUAL QUE ANTES, FUNCIONALES) === */
 :root{
   --bg:#f4f6fb;
   --card:#ffffff;
@@ -18,177 +17,776 @@
   --warning:#fdb022;
   --danger:#f04438;
 }
-*{box-sizing:border-box}
-body{margin:0;font-family:Inter,system-ui;background:var(--bg);color:var(--text)}
-.app{display:grid;grid-template-columns:280px 1fr;min-height:100vh}
-.sidebar{background:#fff;border-right:1px solid var(--border);padding:24px}
-.logo{font-weight:700;font-size:18px;margin-bottom:32px}
-.step{display:flex;gap:12px;margin-bottom:16px;color:var(--muted)}
-.step.active{color:var(--primary);font-weight:600}
-.circle{width:22px;height:22px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px}
-.step.active .circle{border-color:var(--primary)}
-.content{padding:32px}
-.card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:24px;margin-bottom:24px}
-.card h2{margin:0 0 16px;font-size:16px}
-.grid{display:grid;gap:16px}
-.g-2{grid-template-columns:repeat(2,1fr)}
-.g-3{grid-template-columns:repeat(3,1fr)}
-.g-4{grid-template-columns:repeat(4,1fr)}
-label{font-size:13px;color:var(--muted)}
-input,select,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid var(--border)}
-.btn-add{border:1px dashed var(--primary);background:#fff;color:var(--primary);padding:8px 14px;border-radius:999px;font-weight:600;cursor:pointer}
-.primary{background:var(--primary);color:#fff;border:none;padding:12px 20px;border-radius:10px;font-weight:600}
-.localidad-card,.contacto-card,.linea-block{border:1px solid var(--border);border-radius:12px;padding:12px;margin-top:12px}
-.subcats{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-top:10px}
-.subcat{border:2px solid var(--border);border-radius:10px;padding:10px;cursor:pointer}
-.subcat.active{border-color:var(--primary);background:#eff8ff}
-.actions{display:flex;justify-content:flex-end}
 
-/* MODAL */
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;align-items:center;justify-content:center;z-index:999}
-.modal.active{display:flex}
-.modal-content{background:#fff;border-radius:16px;padding:24px;width:100%;max-width:640px}
-.modal-header{display:flex;justify-content:space-between;margin-bottom:16px}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+/* ===== LAYOUT ===== */
+.app{
+  display:grid;
+  grid-template-columns:280px 1fr;
+  min-height:100vh;
+}
+
+.sidebar{
+  background:#fff;
+  border-right:1px solid var(--border);
+  padding:24px;
+}
+
+.logo{
+  font-weight:800;
+  font-size:18px;
+  margin-bottom:28px;
+  letter-spacing:.2px;
+}
+
+.step{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:14px;
+  color:var(--muted);
+  font-size:14px;
+}
+
+.step.active{
+  color:var(--primary);
+  font-weight:650;
+}
+
+.step .circle{
+  width:24px;height:24px;
+  border-radius:999px;
+  border:2px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;
+}
+
+.step.active .circle{
+  border-color:var(--primary);
+  color:var(--primary);
+}
+
+/* ===== CONTENT ===== */
+.content{ padding:32px; }
+h1{ margin:0 0 6px; font-size:24px; }
+p.lead{ margin:0 0 22px; color:var(--muted); }
+
+/* ===== CARDS ===== */
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:24px;
+  margin-bottom:22px;
+}
+
+.card h2{
+  font-size:16px;
+  margin:0 0 16px;
+}
+
+/* ===== FORM ===== */
+.grid{ display:grid; gap:16px; }
+.g-2{ grid-template-columns:repeat(2,1fr); }
+.g-3{ grid-template-columns:repeat(3,1fr); }
+.g-4{ grid-template-columns:repeat(4,1fr); }
+
+@media(max-width:1000px){
+  .app{ grid-template-columns:1fr; }
+  .sidebar{ display:none; }
+  .g-2,.g-3,.g-4{ grid-template-columns:1fr; }
+}
+
+label{ display:block; font-size:13px; color:var(--muted); margin-bottom:6px; }
+.req{ color:var(--danger); }
+
+input,select,textarea{
+  width:100%;
+  padding:12px 14px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  font-size:14px;
+  background:#fff;
+}
+
+input:focus,select:focus,textarea:focus{
+  outline:none;
+  border-color:var(--primary);
+  box-shadow:0 0 0 3px rgba(46,144,250,.15);
+}
+
+textarea{ resize:vertical; }
+
+/* ===== BUTTONS ===== */
+.btn-add{
+  border:1px dashed var(--primary);
+  background:#fff;
+  color:var(--primary);
+  padding:10px 14px;
+  border-radius:999px;
+  font-weight:650;
+  cursor:pointer;
+}
+
+.btn-muted{
+  border:1px solid var(--border);
+  background:#fff;
+  color:var(--text);
+  padding:10px 14px;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+.primary{
+  background:var(--primary);
+  color:#fff;
+  border:none;
+  padding:12px 20px;
+  border-radius:10px;
+  font-weight:650;
+  cursor:pointer;
+}
+
+.actions{
+  display:flex;
+  justify-content:flex-end;
+  gap:12px;
+}
+
+/* ===== LISTAS ===== */
+.localidades{ display:grid; gap:12px; margin-top:14px; }
+.localidad-card{
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:12px;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:12px;
+}
+
+.localidad-meta{
+  font-size:13px;
+  color:var(--muted);
+  margin-top:4px;
+}
+
+.smallbtn{
+  border:1px solid var(--border);
+  background:#fff;
+  border-radius:10px;
+  padding:8px 10px;
+  cursor:pointer;
+}
+
+.contactos-list{ display:grid; gap:12px; margin-top:14px; }
+.contacto-card{
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:12px;
+}
+
+.linea-block{
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:16px;
+  margin-top:14px;
+}
+
+.linea-select{
+  width:100%;
+  padding:14px;
+  border-radius:12px;
+  border:2px solid var(--primary);
+  font-weight:700;
+}
+
+.subcats{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:12px;
+  margin-top:14px;
+}
+
+.subcat{
+  border:2px solid var(--border);
+  border-radius:14px;
+  padding:12px;
+  cursor:pointer;
+  user-select:none;
+  font-weight:550;
+}
+
+.subcat.active{
+  border-color:var(--primary);
+  background:#eff8ff;
+}
+
+/* ===== SCORING ===== */
+.score-label{
+  font-weight:700;
+  margin-top:8px;
+}
+
+/* ===== MODAL ===== */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.42);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:999;
+  padding:16px;
+}
+.modal.active{ display:flex; }
+.modal-content{
+  background:#fff;
+  border-radius:16px;
+  padding:22px;
+  width:100%;
+  max-width:720px;
+  border:1px solid var(--border);
+}
+.modal-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:14px;
+}
+.modal-header h3{
+  margin:0;
+  font-size:16px;
+}
+.modal-footer{
+  display:flex;
+  justify-content:flex-end;
+  gap:10px;
+  margin-top:14px;
+}
+.helper{
+  font-size:12px;
+  color:var(--muted);
+  margin-top:6px;
+}
 </style>
 </head>
 
 <body>
-
 <div class="app">
 
-<div class="sidebar">
-  <div class="logo">ELIZA</div>
-  <div class="step active"><div class="circle">1</div>Creación</div>
-  <div class="step"><div class="circle">2</div>Por atender</div>
-</div>
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="logo">ELIZA</div>
+    <div class="step active"><div class="circle">1</div>Creación de oportunidad</div>
+    <div class="step"><div class="circle">2</div>Por atender</div>
+    <div class="step"><div class="circle">3</div>Inspección</div>
+    <div class="step"><div class="circle">4</div>Diseño</div>
+    <div class="step"><div class="circle">5</div>Revisión</div>
+    <div class="step"><div class="circle">6</div>Modificación</div>
+  </aside>
 
-<div class="content">
+  <!-- CONTENT -->
+  <main class="content">
+    <h1>Creación de oportunidad</h1>
+    <p class="lead">Registro inicial del prospecto para preventa e ingeniería.</p>
 
-<!-- UBICACION -->
-<div class="card">
-<h2>Ubicación del proyecto</h2>
-<button class="btn-add" id="btnAddLocalidad">➕ Agregar localidad</button>
-<div id="localidadesList"></div>
-</div>
+    <!-- DATOS GENERALES -->
+    <section class="card">
+      <h2>Datos generales</h2>
+      <div class="grid g-3">
+        <div>
+          <label>Fecha de registro</label>
+          <input type="date" id="fechaRegistro" />
+        </div>
+        <div>
+          <label>Nombre del cliente</label>
+          <input type="text" id="clienteNombre" />
+        </div>
+        <div>
+          <label>Grupo económico</label>
+          <input type="text" id="grupoEconomico" />
+        </div>
+      </div>
+    </section>
 
-<!-- CONTACTOS -->
-<div class="card">
-<h2>Contactos adicionales</h2>
-<button class="btn-add" id="btnAddContacto">➕ Agregar otro contacto</button>
-<div id="contactosList"></div>
-</div>
+    <!-- UBICACIÓN -->
+    <section class="card">
+      <h2>Ubicación del proyecto</h2>
+      <button class="btn-add" type="button" id="btnOpenLocalidad">➕ Agregar localidad</button>
+      <div class="localidades" id="localidadesList"></div>
+    </section>
 
-<!-- LINEAS -->
-<div class="card">
-<h2>Líneas de negocio</h2>
-<button class="btn-add" id="btnAddLinea">➕ Agregar línea</button>
-<div id="lineasContainer"></div>
-</div>
+    <!-- CONTACTO PRINCIPAL -->
+    <section class="card">
+      <h2>Contacto principal</h2>
+      <div class="grid g-3">
+        <div>
+          <label>Nombre <span class="req">*</span></label>
+          <input type="text" id="contactoPrincipalNombre" />
+        </div>
+        <div>
+          <label>Cargo</label>
+          <input type="text" id="contactoPrincipalCargo" />
+        </div>
+        <div>
+          <label>Teléfono <span class="req">*</span></label>
+          <input type="tel" id="contactoPrincipalTelefono" />
+        </div>
+      </div>
+      <div style="margin-top:12px">
+        <label>Email</label>
+        <input type="email" id="contactoPrincipalEmail" />
+      </div>
+    </section>
 
-<div class="actions">
-<button class="primary">Guardar oportunidad</button>
-</div>
+    <!-- CONTACTOS ADICIONALES -->
+    <section class="card">
+      <h2>Contactos adicionales</h2>
+      <button class="btn-add" type="button" id="btnAddContacto">➕ Agregar otro contacto</button>
+      <div class="contactos-list" id="contactosList"></div>
+    </section>
 
-</div>
+    <!-- INFORMACIÓN COMERCIAL -->
+    <section class="card">
+      <h2>Información comercial</h2>
+      <div class="grid g-4">
+        <div>
+          <label>Tipo de proyecto</label>
+          <select id="tipoProyecto">
+            <option>Venta</option>
+            <option>Renta</option>
+            <option>Ambas</option>
+          </select>
+        </div>
+        <div>
+          <label>Tipo de sector</label>
+          <select id="tipoSector">
+            <option>Público</option>
+            <option>Privado</option>
+          </select>
+        </div>
+        <div>
+          <label>Forma de cobro</label>
+          <select id="formaCobro">
+            <option>Convencional</option>
+            <option>Canje</option>
+            <option>Convenio</option>
+            <option>Donación</option>
+          </select>
+        </div>
+        <div>
+          <label>Estado de obra</label>
+          <select id="estadoObra">
+            <option>Obra gris</option>
+            <option>Construcción terminada</option>
+            <option>Planos</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- NECESIDAD -->
+    <section class="card">
+      <h2>Necesidad del cliente</h2>
+      <label>Describe la problemática, necesidad y procesos involucrados</label>
+      <textarea id="necesidadCliente" rows="4" placeholder="Ejemplo: El cliente requiere mejorar el control de accesos por incidentes recientes, necesita trazabilidad de ingresos y reportes..."></textarea>
+    </section>
+
+    <!-- DEFINICIÓN DE LA SOLUCIÓN -->
+    <section class="card">
+      <h2>Definición de la solución</h2>
+      <div class="grid g-4">
+        <div>
+          <label>Motivo de la inspección <span class="req">*</span></label>
+          <select id="motivoInspeccion">
+            <option value="">Seleccionar…</option>
+            <option>Diseño nuevo</option>
+            <option>Ampliación</option>
+            <option>Optimización</option>
+            <option>Reemplazo</option>
+            <option>Auditoría técnica</option>
+            <option>Regularización</option>
+          </select>
+        </div>
+        <div>
+          <label>Objetivo principal <span class="req">*</span></label>
+          <select id="objetivoPrincipal">
+            <option value="">Seleccionar…</option>
+            <option>Control de procesos</option>
+            <option>Seguridad perimetral</option>
+            <option>Control de accesos</option>
+            <option>Monitoreo</option>
+            <option>Cumplimiento normativo</option>
+            <option>Reducción de riesgos</option>
+          </select>
+        </div>
+        <div>
+          <label>Tiempo de grabación (días) <span class="req">*</span></label>
+          <select id="tiempoGrabacion">
+            <option value="">Seleccionar…</option>
+            <option>7</option>
+            <option>15</option>
+            <option>30</option>
+            <option>60</option>
+            <option>90</option>
+            <option>&gt; 90</option>
+          </select>
+        </div>
+        <div>
+          <label>Vertical de negocio <span class="req">*</span></label>
+          <select id="verticalNegocio">
+            <option value="">Seleccionar…</option>
+            <option>Industrial</option>
+            <option>Comercial</option>
+            <option>Portuario</option>
+            <option>Financiero</option>
+            <option>Logístico</option>
+            <option>Público</option>
+            <option>Residencial</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- LÍNEAS DE NEGOCIO -->
+    <section class="card">
+      <h2>Líneas de negocio</h2>
+      <button class="btn-add" type="button" id="btnAddLinea">➕ Agregar línea</button>
+      <div id="lineasContainer"></div>
+      <div class="helper">Selecciona la línea y marca lo que aplica (subcategorías).</div>
+    </section>
+
+    <!-- GESTIÓN -->
+    <section class="card">
+      <h2>Gestión de la oportunidad</h2>
+      <div class="grid g-3">
+        <div>
+          <label>Fecha tentativa entrega oferta</label>
+          <input type="date" id="fechaEntregaOferta" />
+        </div>
+        <div>
+          <label>Scoring <small>(Prioridad de cierre)</small></label>
+          <input type="range" min="0" max="900" step="10" value="450" id="scoreRange" />
+          <div id="scoreLabel" class="score-label" style="color:var(--warning)">MEDIA (450)</div>
+        </div>
+        <div>
+          <label>Adjuntos</label>
+          <input type="file" id="adjuntos" multiple />
+          <div class="helper">Planos, fotos o documentos compartidos del cliente.</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="actions">
+      <button class="primary" type="button">Guardar oportunidad</button>
+    </div>
+
+  </main>
 </div>
 
 <!-- MODAL LOCALIDAD -->
-<div class="modal" id="modalLocalidad">
-<div class="modal-content">
-<div class="modal-header">
-<h3>Nueva localidad</h3>
-<button id="closeModal">✕</button>
-</div>
+<div class="modal" id="modalLocalidad" aria-hidden="true">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>Agregar localidad / sucursal</h3>
+      <button class="smallbtn" type="button" id="btnCloseLocalidad">✕</button>
+    </div>
 
-<div class="grid g-2">
-<input id="locNombre" placeholder="Nombre localidad">
-<input id="locGPS" placeholder="Coordenadas GPS">
-</div>
+    <div class="grid g-2">
+      <div>
+        <label>Nombre localidad <span class="req">*</span></label>
+        <input type="text" id="locNombre" placeholder="Ej: Planta Norte / Agencia Centro" />
+      </div>
+      <div>
+        <label>Coordenadas GPS</label>
+        <input type="text" id="locGPS" placeholder="-2.1894, -79.8891" />
+      </div>
+    </div>
 
-<div class="grid g-2" style="margin-top:12px">
-<select id="provincia"></select>
-<select id="canton"></select>
-</div>
+    <div style="margin-top:12px">
+      <label>Dirección</label>
+      <textarea id="locDireccion" rows="2" placeholder="Dirección completa"></textarea>
+    </div>
 
-<textarea id="locObs" placeholder="Observaciones" style="margin-top:12px"></textarea>
+    <div class="grid g-2" style="margin-top:12px">
+      <div>
+        <label>Provincia</label>
+        <select id="provincia"></select>
+      </div>
+      <div>
+        <label>Cantón</label>
+        <select id="canton"></select>
+      </div>
+    </div>
 
-<div class="actions">
-<button id="saveLocalidad" class="primary">Guardar</button>
-</div>
-</div>
+    <div style="margin-top:12px">
+      <label>Observaciones</label>
+      <textarea id="locObs" rows="2" placeholder="Notas relevantes de la localidad"></textarea>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-muted" type="button" id="btnCancelLocalidad">Cancelar</button>
+      <button class="primary" type="button" id="btnSaveLocalidad">Guardar</button>
+    </div>
+  </div>
 </div>
 
 <script>
-/* ========= UBICACIONES ========= */
-const DATA={Guayas:["Guayaquil","Durán"],Pichincha:["Quito","Rumiñahui"]};
-const modal=document.getElementById("modalLocalidad");
-const provincia=document.getElementById("provincia");
-const canton=document.getElementById("canton");
-const localidadesList=document.getElementById("localidadesList");
+document.addEventListener("DOMContentLoaded", () => {
+  /* ========= DATA: PROVINCIAS / CANTONES ========= */
+  const DATA = {
+    "Guayas": ["Guayaquil","Durán","Samborondón","Daule"],
+    "Pichincha": ["Quito","Rumiñahui","Cayambe","Mejía"],
+    "Manabí": ["Manta","Portoviejo","Chone","Jipijapa"],
+    "Azuay": ["Cuenca","Gualaceo","Paute"]
+  };
 
-Object.keys(DATA).forEach(p=>{
-  provincia.innerHTML+=`<option value="${p}">${p}</option>`;
+  /* ========= DATA: LÍNEAS ========= */
+  const LINEAS = {
+    "Seguridad Electrónica": ["CCTV","Intrusión","Control de Accesos","Analítica","Radares","Intercom"],
+    "SCI": ["Detección","Extinción","Alarmas"],
+    "IT": ["Infraestructura Red","WiFi","Data Center","Fibra Óptica"],
+    "Flotas y Com": ["Combustible","Flotas","Telemetría"]
+  };
+
+  /* ========= ELEMENTOS: LOCALIDAD ========= */
+  const modal = document.getElementById("modalLocalidad");
+  const btnOpenLocalidad = document.getElementById("btnOpenLocalidad");
+  const btnCloseLocalidad = document.getElementById("btnCloseLocalidad");
+  const btnCancelLocalidad = document.getElementById("btnCancelLocalidad");
+  const btnSaveLocalidad = document.getElementById("btnSaveLocalidad");
+  const localidadesList = document.getElementById("localidadesList");
+
+  const locNombre = document.getElementById("locNombre");
+  const locGPS = document.getElementById("locGPS");
+  const locDireccion = document.getElementById("locDireccion");
+  const provincia = document.getElementById("provincia");
+  const canton = document.getElementById("canton");
+  const locObs = document.getElementById("locObs");
+
+  let localidades = [];
+
+  function openModal(){
+    modal.classList.add("active");
+    modal.setAttribute("aria-hidden","false");
+  }
+  function closeModal(){
+    modal.classList.remove("active");
+    modal.setAttribute("aria-hidden","true");
+  }
+  function clearLocalidadForm(){
+    locNombre.value = "";
+    locGPS.value = "";
+    locDireccion.value = "";
+    locObs.value = "";
+    // mantener provincia/canton seleccionados
+  }
+
+  function populateProvincias(){
+    provincia.innerHTML = "";
+    Object.keys(DATA).forEach((p) => {
+      const opt = document.createElement("option");
+      opt.value = p; opt.textContent = p;
+      provincia.appendChild(opt);
+    });
+  }
+
+  function populateCantones(selectedProvincia){
+    canton.innerHTML = "";
+    (DATA[selectedProvincia] || []).forEach((c) => {
+      const opt = document.createElement("option");
+      opt.value = c; opt.textContent = c;
+      canton.appendChild(opt);
+    });
+  }
+
+  function renderLocalidades(){
+    localidadesList.innerHTML = "";
+    localidades.forEach((l, idx) => {
+      const card = document.createElement("div");
+      card.className = "localidad-card";
+      card.innerHTML = `
+        <div>
+          <div style="font-weight:700">${escapeHtml(l.nombre || "Localidad")}</div>
+          <div class="localidad-meta">
+            ${escapeHtml(l.provincia || "")} / ${escapeHtml(l.canton || "")}
+            ${l.gps ? " · GPS: " + escapeHtml(l.gps) : ""}
+          </div>
+          ${l.direccion ? `<div class="localidad-meta">${escapeHtml(l.direccion)}</div>` : ""}
+          ${l.obs ? `<div class="localidad-meta">Obs: ${escapeHtml(l.obs)}</div>` : ""}
+        </div>
+        <button class="smallbtn" type="button" data-remove-localidad="${idx}">Eliminar</button>
+      `;
+      localidadesList.appendChild(card);
+    });
+
+    // listeners eliminar
+    localidadesList.querySelectorAll("[data-remove-localidad]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const i = Number(btn.getAttribute("data-remove-localidad"));
+        localidades.splice(i, 1);
+        renderLocalidades();
+      });
+    });
+  }
+
+  btnOpenLocalidad.addEventListener("click", openModal);
+  btnCloseLocalidad.addEventListener("click", closeModal);
+  btnCancelLocalidad.addEventListener("click", closeModal);
+
+  provincia.addEventListener("change", () => {
+    populateCantones(provincia.value);
+  });
+
+  btnSaveLocalidad.addEventListener("click", () => {
+    if(!locNombre.value.trim()){
+      alert("Por favor ingresa el nombre de la localidad.");
+      locNombre.focus();
+      return;
+    }
+
+    const item = {
+      nombre: locNombre.value.trim(),
+      gps: locGPS.value.trim(),
+      direccion: locDireccion.value.trim(),
+      provincia: provincia.value,
+      canton: canton.value,
+      obs: locObs.value.trim()
+    };
+
+    localidades.push(item);
+    renderLocalidades();
+    closeModal();
+    clearLocalidadForm();
+  });
+
+  // click fuera del modal-content
+  modal.addEventListener("click", (e) => {
+    if(e.target === modal) closeModal();
+  });
+
+  // init provincias/cantones
+  populateProvincias();
+  populateCantones(provincia.value || Object.keys(DATA)[0]);
+
+  /* ========= CONTACTOS ADICIONALES ========= */
+  const btnAddContacto = document.getElementById("btnAddContacto");
+  const contactosList = document.getElementById("contactosList");
+  let contactoCounter = 0;
+
+  function addContacto(){
+    contactoCounter++;
+    const wrap = document.createElement("div");
+    wrap.className = "contacto-card";
+    wrap.innerHTML = `
+      <div class="grid g-3">
+        <div>
+          <label>Nombre</label>
+          <input type="text" placeholder="Nombre" />
+        </div>
+        <div>
+          <label>Cargo</label>
+          <input type="text" placeholder="Cargo" />
+        </div>
+        <div>
+          <label>Teléfono</label>
+          <input type="tel" placeholder="Teléfono" />
+        </div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;margin-top:10px">
+        <button class="smallbtn" type="button">Eliminar</button>
+      </div>
+    `;
+    wrap.querySelector("button.smallbtn").addEventListener("click", () => wrap.remove());
+    contactosList.appendChild(wrap);
+  }
+
+  btnAddContacto.addEventListener("click", addContacto);
+
+  /* ========= LÍNEAS DE NEGOCIO ========= */
+  const btnAddLinea = document.getElementById("btnAddLinea");
+  const lineasContainer = document.getElementById("lineasContainer");
+  let lineaCounter = 0;
+
+  function addLinea(){
+    lineaCounter++;
+    const id = `ln_${lineaCounter}`;
+
+    const block = document.createElement("div");
+    block.className = "linea-block";
+    block.innerHTML = `
+      <div style="display:flex;gap:10px;align-items:center">
+        <select class="linea-select" id="sel_${id}">
+          <option value="">Selecciona línea</option>
+          ${Object.keys(LINEAS).map(l => `<option value="${escapeHtml(l)}">${escapeHtml(l)}</option>`).join("")}
+        </select>
+        <button class="smallbtn" type="button" id="rm_${id}">Eliminar</button>
+      </div>
+      <div class="subcats" id="sub_${id}"></div>
+    `;
+
+    const select = block.querySelector(`#sel_${id}`);
+    const sub = block.querySelector(`#sub_${id}`);
+    const rm = block.querySelector(`#rm_${id}`);
+
+    rm.addEventListener("click", () => block.remove());
+
+    select.addEventListener("change", () => {
+      const linea = select.value;
+      sub.innerHTML = "";
+      if(!linea || !LINEAS[linea]) return;
+
+      LINEAS[linea].forEach(s => {
+        const chip = document.createElement("div");
+        chip.className = "subcat";
+        chip.textContent = s;
+        chip.addEventListener("click", () => chip.classList.toggle("active"));
+        sub.appendChild(chip);
+      });
+    });
+
+    lineasContainer.appendChild(block);
+  }
+
+  btnAddLinea.addEventListener("click", addLinea);
+
+  /* ========= SCORING ========= */
+  const scoreRange = document.getElementById("scoreRange");
+  const scoreLabel = document.getElementById("scoreLabel");
+
+  function updateScore(val){
+    let txt = "BAJA";
+    let color = "var(--danger)";
+    const v = Number(val);
+
+    if(v > 300 && v <= 600){ txt = "MEDIA"; color = "var(--warning)"; }
+    if(v > 600){ txt = "ALTA"; color = "var(--success)"; }
+
+    scoreLabel.textContent = `${txt} (${v})`;
+    scoreLabel.style.color = color;
+  }
+
+  scoreRange.addEventListener("input", (e) => updateScore(e.target.value));
+  updateScore(scoreRange.value);
+
+  /* ========= HELPERS ========= */
+  function escapeHtml(str){
+    return String(str ?? "")
+      .replaceAll("&","&amp;")
+      .replaceAll("<","&lt;")
+      .replaceAll(">","&gt;")
+      .replaceAll('"',"&quot;")
+      .replaceAll("'","&#039;");
+  }
 });
-
-provincia.onchange=()=>{
-  canton.innerHTML="";
-  DATA[provincia.value].forEach(c=>{
-    canton.innerHTML+=`<option>${c}</option>`;
-  });
-};
-
-document.getElementById("btnAddLocalidad").onclick=()=>modal.classList.add("active");
-document.getElementById("closeModal").onclick=()=>modal.classList.remove("active");
-
-document.getElementById("saveLocalidad").onclick=()=>{
-  localidadesList.innerHTML+=`
-    <div class="localidad-card">
-      ${locNombre.value} - ${provincia.value} / ${canton.value}
-    </div>`;
-  modal.classList.remove("active");
-};
-
-/* ========= CONTACTOS ========= */
-document.getElementById("btnAddContacto").onclick=()=>{
-  contactosList.innerHTML+=`
-    <div class="contacto-card">
-      <input placeholder="Nombre">
-      <input placeholder="Cargo">
-      <input placeholder="Teléfono">
-      <button onclick="this.parentNode.remove()">Eliminar</button>
-    </div>`;
-};
-
-/* ========= LINEAS ========= */
-const LINEAS={
-  "Seguridad Electrónica":["CCTV","Intrusión","Control de Accesos"],
-  "IT":["Redes","WiFi"]
-};
-
-document.getElementById("btnAddLinea").onclick=()=>{
-  const id=Math.random().toString(36).substr(2,5);
-  lineasContainer.innerHTML+=`
-    <div class="linea-block">
-      <select onchange="renderSub('${id}',this.value)">
-        <option value="">Selecciona línea</option>
-        ${Object.keys(LINEAS).map(l=>`<option>${l}</option>`).join("")}
-      </select>
-      <div class="subcats" id="sub-${id}"></div>
-    </div>`;
-};
-
-function renderSub(id,linea){
-  const c=document.getElementById("sub-"+id);
-  c.innerHTML="";
-  LINEAS[linea].forEach(s=>{
-    const d=document.createElement("div");
-    d.className="subcat";
-    d.textContent=s;
-    d.onclick=()=>d.classList.toggle("active");
-    c.appendChild(d);
-  });
-}
 </script>
-
 </body>
 </html>
