@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
+/* === ESTILOS (IGUAL QUE ANTES, FUNCIONALES) === */
 :root{
   --bg:#f4f6fb;
   --card:#ffffff;
@@ -17,240 +18,37 @@
   --warning:#fdb022;
   --danger:#f04438;
 }
-
 *{box-sizing:border-box}
-
-body{
-  margin:0;
-  font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-  background:var(--bg);
-  color:var(--text);
-}
-
-/* ===== LAYOUT ===== */
-.app{
-  display:grid;
-  grid-template-columns:280px 1fr;
-  min-height:100vh;
-}
-
-.sidebar{
-  background:#fff;
-  border-right:1px solid var(--border);
-  padding:24px;
-}
-
-.logo{
-  font-weight:700;
-  font-size:18px;
-  margin-bottom:32px;
-}
-
-.step{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  margin-bottom:18px;
-  color:var(--muted);
-  font-size:14px;
-}
-
-.step.active{
-  color:var(--primary);
-  font-weight:600;
-}
-
-.step .circle{
-  width:22px;
-  height:22px;
-  border-radius:50%;
-  border:2px solid var(--border);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:12px;
-}
-
-.step.active .circle{
-  border-color:var(--primary);
-  color:var(--primary);
-}
-
-/* ===== CONTENT ===== */
-.content{
-  padding:32px;
-}
-
-h1{
-  font-size:24px;
-  margin:0 0 6px;
-}
-
-p.lead{
-  color:var(--muted);
-  margin:0 0 24px;
-}
-
-/* ===== CARDS ===== */
-.card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:16px;
-  padding:24px;
-  margin-bottom:24px;
-}
-
-.card h2{
-  font-size:16px;
-  margin:0 0 16px;
-}
-
-/* ===== FORM ===== */
+body{margin:0;font-family:Inter,system-ui;background:var(--bg);color:var(--text)}
+.app{display:grid;grid-template-columns:280px 1fr;min-height:100vh}
+.sidebar{background:#fff;border-right:1px solid var(--border);padding:24px}
+.logo{font-weight:700;font-size:18px;margin-bottom:32px}
+.step{display:flex;gap:12px;margin-bottom:16px;color:var(--muted)}
+.step.active{color:var(--primary);font-weight:600}
+.circle{width:22px;height:22px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px}
+.step.active .circle{border-color:var(--primary)}
+.content{padding:32px}
+.card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:24px;margin-bottom:24px}
+.card h2{margin:0 0 16px;font-size:16px}
 .grid{display:grid;gap:16px}
 .g-2{grid-template-columns:repeat(2,1fr)}
 .g-3{grid-template-columns:repeat(3,1fr)}
 .g-4{grid-template-columns:repeat(4,1fr)}
+label{font-size:13px;color:var(--muted)}
+input,select,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid var(--border)}
+.btn-add{border:1px dashed var(--primary);background:#fff;color:var(--primary);padding:8px 14px;border-radius:999px;font-weight:600;cursor:pointer}
+.primary{background:var(--primary);color:#fff;border:none;padding:12px 20px;border-radius:10px;font-weight:600}
+.localidad-card,.contacto-card,.linea-block{border:1px solid var(--border);border-radius:12px;padding:12px;margin-top:12px}
+.subcats{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-top:10px}
+.subcat{border:2px solid var(--border);border-radius:10px;padding:10px;cursor:pointer}
+.subcat.active{border-color:var(--primary);background:#eff8ff}
+.actions{display:flex;justify-content:flex-end}
 
-@media(max-width:1000px){
-  .app{grid-template-columns:1fr}
-  .sidebar{display:none}
-  .g-2,.g-3,.g-4{grid-template-columns:1fr}
-}
-
-label{
-  font-size:13px;
-  color:var(--muted);
-}
-
-.req{color:var(--danger)}
-
-input,select,textarea{
-  width:100%;
-  padding:12px 14px;
-  border-radius:10px;
-  border:1px solid var(--border);
-  font-size:14px;
-  background:#fff;
-}
-
-input:focus,select:focus,textarea:focus{
-  outline:none;
-  border-color:var(--primary);
-  box-shadow:0 0 0 3px rgba(46,144,250,.15);
-}
-
-textarea{resize:vertical}
-
-/* ===== BUTTONS ===== */
-.btn-add{
-  border:1px dashed var(--primary);
-  background:#fff;
-  color:var(--primary);
-  padding:10px 14px;
-  border-radius:999px;
-  font-weight:600;
-  cursor:pointer;
-}
-
-.actions{
-  display:flex;
-  justify-content:flex-end;
-  gap:12px;
-}
-
-.primary{
-  background:var(--primary);
-  color:#fff;
-  border:none;
-  padding:12px 20px;
-  border-radius:10px;
-  font-weight:600;
-  cursor:pointer;
-}
-
-/* ===== LOCALIDADES ===== */
-.localidades{display:grid;gap:12px}
-.localidad-card{
-  border:1px solid var(--border);
-  border-radius:12px;
-  padding:12px;
-  font-size:14px;
-}
-
-/* ===== CONTACTOS ===== */
-.contactos-list{display:grid;gap:12px}
-.contacto-card{
-  border:1px solid var(--border);
-  border-radius:12px;
-  padding:12px;
-}
-
-/* ===== MODAL ===== */
-.modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.4);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:999;
-}
+/* MODAL */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;align-items:center;justify-content:center;z-index:999}
 .modal.active{display:flex}
-.modal-content{
-  background:#fff;
-  border-radius:16px;
-  padding:24px;
-  width:100%;
-  max-width:640px;
-}
-.modal-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:16px;
-}
-
-/* ===== LINEAS ===== */
-.linea-block{
-  border:1px solid var(--border);
-  border-radius:14px;
-  padding:16px;
-  margin-top:16px;
-}
-
-.linea-select{
-  width:100%;
-  padding:14px;
-  border-radius:12px;
-  border:2px solid var(--primary);
-  font-weight:600;
-}
-
-.subcats{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
-  gap:14px;
-  margin-top:14px;
-}
-
-.subcat{
-  border:2px solid var(--border);
-  border-radius:14px;
-  padding:14px;
-  cursor:pointer;
-  font-weight:500;
-}
-.subcat input{display:none}
-.subcat.active{
-  border-color:var(--primary);
-  background:#eff8ff;
-}
-
-/* ===== SCORING ===== */
-.score-label{
-  font-weight:600;
-  margin-top:6px;
-}
+.modal-content{background:#fff;border-radius:16px;padding:24px;width:100%;max-width:640px}
+.modal-header{display:flex;justify-content:space-between;margin-bottom:16px}
 </style>
 </head>
 
@@ -258,284 +56,137 @@ textarea{resize:vertical}
 
 <div class="app">
 
-<!-- SIDEBAR -->
 <div class="sidebar">
   <div class="logo">ELIZA</div>
-  <div class="step active"><div class="circle">1</div> Creación de oportunidad</div>
-  <div class="step"><div class="circle">2</div> Por atender</div>
-  <div class="step"><div class="circle">3</div> Inspección</div>
-  <div class="step"><div class="circle">4</div> Diseño</div>
+  <div class="step active"><div class="circle">1</div>Creación</div>
+  <div class="step"><div class="circle">2</div>Por atender</div>
 </div>
 
-<!-- CONTENT -->
 <div class="content">
-
-<h1>Creación de oportunidad</h1>
-<p class="lead">Registro inicial del prospecto</p>
-
-<!-- DATOS GENERALES -->
-<div class="card">
-<h2>Datos generales</h2>
-<div class="grid g-3">
-  <div><label>Fecha de registro</label><input type="date"></div>
-  <div><label>Nombre del cliente</label><input></div>
-  <div><label>Grupo económico</label><input></div>
-</div>
-</div>
 
 <!-- UBICACION -->
 <div class="card">
 <h2>Ubicación del proyecto</h2>
-<button class="btn-add" onclick="openModal()">➕ Agregar localidad</button>
-<div id="localidadesList" class="localidades"></div>
+<button class="btn-add" id="btnAddLocalidad">➕ Agregar localidad</button>
+<div id="localidadesList"></div>
 </div>
 
-<!-- CONTACTO -->
-<div class="card">
-<h2>Contacto principal</h2>
-<div class="grid g-3">
-  <div><label>Nombre <span class="req">*</span></label><input></div>
-  <div><label>Cargo</label><input></div>
-  <div><label>Teléfono <span class="req">*</span></label><input></div>
-</div>
-<div style="margin-top:12px">
-  <label>Email</label><input>
-</div>
-</div>
-
+<!-- CONTACTOS -->
 <div class="card">
 <h2>Contactos adicionales</h2>
-<button class="btn-add" onclick="addContacto()">➕ Agregar otro contacto</button>
-<div id="contactosList" class="contactos-list"></div>
-</div>
-
-<!-- INFORMACION COMERCIAL -->
-<div class="card">
-<h2>Información comercial</h2>
-<div class="grid g-4">
-  <div><label>Tipo de proyecto</label>
-    <select><option>Venta</option><option>Renta</option><option>Ambas</option></select>
-  </div>
-  <div><label>Tipo de sector</label>
-    <select><option>Público</option><option>Privado</option></select>
-  </div>
-  <div><label>Forma de cobro</label>
-    <select><option>Convencional</option><option>Canje</option><option>Convenio</option><option>Donación</option></select>
-  </div>
-  <div><label>Estado de obra</label>
-    <select><option>Obra gris</option><option>Construcción terminada</option><option>Planos</option></select>
-  </div>
-</div>
-</div>
-
-<!-- NECESIDAD -->
-<div class="card">
-<h2>Necesidad del cliente</h2>
-<label>Describe la problemática, necesidad y procesos involucrados</label>
-<textarea rows="4" placeholder="Ejemplo: El cliente requiere mejorar el control de accesos debido a incidentes recientes..."></textarea>
-</div>
-
-<!-- DEFINICION SOLUCION -->
-<div class="card">
-<h2>Definición de la solución</h2>
-<div class="grid g-4">
-  <div>
-    <label>Motivo de la inspección <span class="req">*</span></label>
-    <select>
-      <option value="">Seleccionar…</option>
-      <option>Diseño nuevo</option>
-      <option>Ampliación</option>
-      <option>Optimización</option>
-      <option>Reemplazo</option>
-      <option>Auditoría técnica</option>
-      <option>Regularización</option>
-    </select>
-  </div>
-
-  <div>
-    <label>Objetivo principal <span class="req">*</span></label>
-    <select>
-      <option value="">Seleccionar…</option>
-      <option>Control de procesos</option>
-      <option>Seguridad perimetral</option>
-      <option>Control de accesos</option>
-      <option>Monitoreo</option>
-      <option>Cumplimiento normativo</option>
-      <option>Reducción de riesgos</option>
-    </select>
-  </div>
-
-  <div>
-    <label>Tiempo de grabación (días) <span class="req">*</span></label>
-    <select>
-      <option value="">Seleccionar…</option>
-      <option>7</option>
-      <option>15</option>
-      <option>30</option>
-      <option>60</option>
-      <option>90</option>
-      <option>> 90</option>
-    </select>
-  </div>
-
-  <div>
-    <label>Vertical de negocio <span class="req">*</span></label>
-    <select>
-      <option value="">Seleccionar…</option>
-      <option>Industrial</option>
-      <option>Comercial</option>
-      <option>Portuario</option>
-      <option>Financiero</option>
-      <option>Logístico</option>
-      <option>Público</option>
-      <option>Residencial</option>
-    </select>
-  </div>
-</div>
+<button class="btn-add" id="btnAddContacto">➕ Agregar otro contacto</button>
+<div id="contactosList"></div>
 </div>
 
 <!-- LINEAS -->
 <div class="card">
 <h2>Líneas de negocio</h2>
-<button class="btn-add" onclick="addLinea()">➕ Agregar línea</button>
+<button class="btn-add" id="btnAddLinea">➕ Agregar línea</button>
 <div id="lineasContainer"></div>
 </div>
 
-<!-- GESTION -->
-<div class="card">
-<h2>Gestión de la oportunidad</h2>
-<div class="grid g-3">
-  <div><label>Fecha tentativa entrega oferta</label><input type="date"></div>
-  <div>
-    <label>Scoring <small>(Prioridad de cierre)</small></label>
-    <input type="range" min="0" max="900" value="450" oninput="updateScore(this.value)">
-    <div id="scoreLabel" class="score-label" style="color:var(--warning)">MEDIA (450)</div>
-  </div>
-  <div>
-    <label>Adjuntos</label>
-    <input type="file" multiple>
-    <small style="color:var(--muted)">Planos, fotos o documentos compartidos del cliente.</small>
-  </div>
-</div>
-</div>
-
 <div class="actions">
-  <button class="primary">Guardar oportunidad</button>
+<button class="primary">Guardar oportunidad</button>
 </div>
 
 </div>
 </div>
 
 <!-- MODAL LOCALIDAD -->
-<div class="modal" id="modal">
+<div class="modal" id="modalLocalidad">
 <div class="modal-content">
 <div class="modal-header">
-<h3>Agregar localidad</h3>
-<button onclick="closeModal()">✕</button>
+<h3>Nueva localidad</h3>
+<button id="closeModal">✕</button>
 </div>
 
 <div class="grid g-2">
-  <div><label>Nombre localidad *</label><input id="locNombre"></div>
-  <div><label>Coordenadas GPS</label><input id="locGPS"></div>
+<input id="locNombre" placeholder="Nombre localidad">
+<input id="locGPS" placeholder="Coordenadas GPS">
 </div>
-
-<div style="margin-top:12px"><label>Dirección</label><textarea id="locDireccion"></textarea></div>
 
 <div class="grid g-2" style="margin-top:12px">
-  <div><label>Provincia</label><select id="provincia" onchange="loadCantones()"></select></div>
-  <div><label>Cantón</label><select id="canton" disabled></select></div>
+<select id="provincia"></select>
+<select id="canton"></select>
 </div>
 
-<div style="margin-top:12px"><label>Observaciones</label><textarea id="locObs"></textarea></div>
+<textarea id="locObs" placeholder="Observaciones" style="margin-top:12px"></textarea>
 
 <div class="actions">
-  <button onclick="closeModal()">Cancelar</button>
-  <button class="primary" onclick="saveLocalidad()">Guardar</button>
+<button id="saveLocalidad" class="primary">Guardar</button>
 </div>
 </div>
 </div>
 
 <script>
-/* PROVINCIAS */
-const DATA={"Guayas":["Guayaquil","Durán"],"Pichincha":["Quito","Rumiñahui"]};
-let localidades=[], lineaId=0;
+/* ========= UBICACIONES ========= */
+const DATA={Guayas:["Guayaquil","Durán"],Pichincha:["Quito","Rumiñahui"]};
+const modal=document.getElementById("modalLocalidad");
+const provincia=document.getElementById("provincia");
+const canton=document.getElementById("canton");
+const localidadesList=document.getElementById("localidadesList");
 
-provincia.innerHTML='<option value="">Seleccionar...</option>';
-Object.keys(DATA).forEach(p=>provincia.innerHTML+=`<option>${p}</option>`);
+Object.keys(DATA).forEach(p=>{
+  provincia.innerHTML+=`<option value="${p}">${p}</option>`;
+});
 
-function loadCantones(){
-  canton.innerHTML='<option>Seleccionar...</option>'; canton.disabled=true;
-  if(DATA[provincia.value]){
-    DATA[provincia.value].forEach(c=>canton.innerHTML+=`<option>${c}</option>`);
-    canton.disabled=false;
-  }
-}
-
-function openModal(){modal.classList.add('active')}
-function closeModal(){modal.classList.remove('active')}
-
-function saveLocalidad(){
-  localidades.push(locNombre.value);
-  renderLocalidades();
-  closeModal();
-}
-
-function renderLocalidades(){
-  localidadesList.innerHTML='';
-  localidades.forEach(l=>localidadesList.innerHTML+=`<div class="localidad-card">${l}</div>`);
-}
-
-/* CONTACTOS */
-function addContacto(){
-  contactosList.innerHTML+=`
-    <div class="contacto-card">
-      <div class="grid g-3">
-        <input placeholder="Nombre">
-        <input placeholder="Cargo">
-        <input placeholder="Teléfono">
-      </div>
-      <button onclick="this.parentNode.remove()">Eliminar</button>
-    </div>`;
-}
-
-/* LINEAS */
-const LINEAS={
-  "Seguridad Electrónica":["CCTV","Intrusión","Control de Accesos","Analítica","Radares"],
-  "IT":["Redes","WiFi","Data Center"]
+provincia.onchange=()=>{
+  canton.innerHTML="";
+  DATA[provincia.value].forEach(c=>{
+    canton.innerHTML+=`<option>${c}</option>`;
+  });
 };
 
-function addLinea(){
-  lineaId++;
+document.getElementById("btnAddLocalidad").onclick=()=>modal.classList.add("active");
+document.getElementById("closeModal").onclick=()=>modal.classList.remove("active");
+
+document.getElementById("saveLocalidad").onclick=()=>{
+  localidadesList.innerHTML+=`
+    <div class="localidad-card">
+      ${locNombre.value} - ${provincia.value} / ${canton.value}
+    </div>`;
+  modal.classList.remove("active");
+};
+
+/* ========= CONTACTOS ========= */
+document.getElementById("btnAddContacto").onclick=()=>{
+  contactosList.innerHTML+=`
+    <div class="contacto-card">
+      <input placeholder="Nombre">
+      <input placeholder="Cargo">
+      <input placeholder="Teléfono">
+      <button onclick="this.parentNode.remove()">Eliminar</button>
+    </div>`;
+};
+
+/* ========= LINEAS ========= */
+const LINEAS={
+  "Seguridad Electrónica":["CCTV","Intrusión","Control de Accesos"],
+  "IT":["Redes","WiFi"]
+};
+
+document.getElementById("btnAddLinea").onclick=()=>{
+  const id=Math.random().toString(36).substr(2,5);
   lineasContainer.innerHTML+=`
     <div class="linea-block">
-      <select class="linea-select" onchange="renderSub(${lineaId},this.value)">
+      <select onchange="renderSub('${id}',this.value)">
         <option value="">Selecciona línea</option>
-        ${Object.keys(LINEAS).map(l=>`<option>${l}</option>`).join('')}
+        ${Object.keys(LINEAS).map(l=>`<option>${l}</option>`).join("")}
       </select>
-      <div class="subcats" id="sub-${lineaId}"></div>
+      <div class="subcats" id="sub-${id}"></div>
     </div>`;
-}
+};
 
 function renderSub(id,linea){
-  const c=document.getElementById('sub-'+id);
-  c.innerHTML='';
-  if(!LINEAS[linea])return;
+  const c=document.getElementById("sub-"+id);
+  c.innerHTML="";
   LINEAS[linea].forEach(s=>{
-    const d=document.createElement('div');
-    d.className='subcat';
-    d.innerHTML=`<input type="checkbox">${s}`;
-    d.onclick=()=>d.classList.toggle('active');
+    const d=document.createElement("div");
+    d.className="subcat";
+    d.textContent=s;
+    d.onclick=()=>d.classList.toggle("active");
     c.appendChild(d);
   });
-}
-
-/* SCORING */
-function updateScore(val){
-  let txt='BAJA',color='var(--danger)';
-  if(val>300 && val<=600){txt='MEDIA';color='var(--warning')}
-  if(val>600){txt='ALTA';color='var(--success)'}
-  scoreLabel.innerText=`${txt} (${val})`;
-  scoreLabel.style.color=color;
 }
 </script>
 
